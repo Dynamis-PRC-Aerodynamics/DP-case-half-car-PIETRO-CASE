@@ -240,7 +240,7 @@ To queue a run, prepare its case while the previous one is running and launch `.
 
 ## Post-processing
 
-During the run, `system/controlDict` executes the function objects in `system/functions/`: residuals, force coefficients and forces at every iteration; mean fields, near-wall velocity, wall shear stress, vorticity, `Q` and `yPlus` at write time. The mean fields `UMean` and `pMean` restart every 100 iterations.
+During the run, `system/controlDict` executes the function objects in `system/functions/`: force coefficients at every iteration; forces, residuals, mean fields, near-wall velocity, wall shear stress, vorticity, `Q` and `yPlus` at write time. The mean fields `UMean` and `pMean` restart every 100 iterations.
 
 After the solver, the scripts run the same block:
 
