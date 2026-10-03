@@ -1,0 +1,356 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2512                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       IOobject;
+    location    "0";
+    object      initialConditions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Parameters shared by the dictionaries in system/, constant/ and orig0/,
+// which include this file.
+
+// ==================== RUN ====================
+
+np                   56;
+
+iterations           800;
+writeStep            200;
+
+turbModel            kOmegaSST;
+
+flowVelocity         (16 0 0);
+pressure             0;
+turbulentKE          0.085;
+turbulentOmega       1.78;
+
+
+// ==================== FORCE COEFFICIENTS ====================
+
+rho                  1.225;
+lift                 (0 0 1);
+drag                 (1 0 0);
+// Moment pole on the front axle (x = 0). aeroTools needs it there to compute
+// the aerodynamic balance, see README.
+CR                   (0 0.765 0);
+pitch                (0 1 0);
+magU                 16;
+wb                   1.53;
+A                    1;
+
+
+// ==================== WHEELS ====================
+// Rotation centre, axis and angular velocity of each wheel. The axes carry
+// 1 deg of negative camber.
+
+FLCenter             (0 -0.6225613 0.1981985);
+FLaxis               (0 -0.9998476952 0.0174524064);
+FLomega              80.2342;
+
+FRCenter             (0 0.6225613 0.1981985);
+FRaxis               (0 0.9998476952 0.0174524064);
+FRomega              -80.2342;
+
+RLCenter             (1.53 -0.6225613 0.1981985);
+RLaxis               (0 -0.9998476952 0.0174524064);
+RLomega              80.2342;
+
+RRCenter             (1.53 0.6225613 0.1981985);
+RRaxis               (0 0.9998476952 0.0174524064);
+RRomega              -80.2342;
+
+
+// ==================== surfaceFeatureExtract ====================
+
+inclAngle            150;
+
+
+// ==================== snappyHexMesh: DISTANCE REFINEMENT ====================
+// Each tier is a cascade of (distance level) pairs around the surfaces that
+// use it.
+
+// General tier: every wall patch not listed in the two tiers below.
+dist1                0.015;
+ref1                 9;
+
+dist2                0.1;
+ref2                 8;
+
+dist3                0.18;
+ref3                 7;
+
+dist4                0.25;
+ref4                 6;
+
+dist5                0.4;
+ref5                 5;
+
+dist6                1.0;
+ref6                 4;
+
+// Monocoque tier: Monocoque, Monocoque_Kick, Susps, Uprights.
+dist1Mono            0.15;
+ref1Mono             8;
+
+dist2Mono            0.2;
+ref2Mono             7;
+
+dist3Mono            0.3;
+ref3Mono             6;
+
+// Duct tier: Monocoque_Duct only.
+dist1Mono_duct       0.05;
+ref1Mono_duct        9;
+
+dist2Mono_duct       0.15;
+ref2Mono_duct        8;
+
+dist3Mono_duct       0.2;
+ref3Mono_duct        7;
+
+
+// ==================== snappyHexMesh: REFINEMENT BOXES ====================
+
+// Front wheel wake
+min1                 (-0.2 0.45 0);
+max1                 (0.4 1.0 0.4);
+lvl1                 7;
+
+// Rear wheel wake
+min2                 (1.3 0.45 0);
+max2                 (2.2 1.0 0.4);
+lvl2                 4;
+
+// Outer box
+min3                 (-6 0 0);
+max3                 (20 3 6);
+lvl3                 1;
+
+// Car box
+min4                 (-1.2 0 0);
+max4                 (2.21 1.10 0.9);
+lvl4                 6;
+
+// Near wake
+min5                 (1.5 0 0);
+max5                 (4.5 1.8 2);
+lvl5                 4;
+
+// Middle wake
+min6                 (1.5 0 0);
+max6                 (8 2 2.3);
+lvl6                 3;
+
+// Far wake
+min7                 (1.5 0 0);
+max7                 (15 2.5 4);
+lvl7                 2;
+
+// Battery fans
+min8                 (1.58 0 0.05);
+max8                 (1.98 0.15 0.3);
+lvl8                 8;
+
+// Radiator fan. This one is a cylinder: min9 and max9 are the two points of
+// its axis.
+min9                 (1.7789154 0.3168036 0.1985971);
+max9                 (2.2120933 0.3168036 0.4483109);
+radius9              0.1;
+lvl9                 8;
+
+// Ground
+min10                (-1.15 0 0);
+max10                (2.8 1.15 0.55);
+lvl10                7;
+
+// Closest wake
+min11                (2.2 0 0);
+max11                (4.5 1.5 1.5);
+lvl11                5;
+
+min12                (2.0 0 0);
+max12                (2.4 1.0 0.6);
+lvl12                7;
+
+min13                (-0.49 0.41 0);
+max13                (0.49 0.89 0.1);
+lvl13                9;
+
+// Ground, lower band
+min14                (-1.15 0 0);
+max14                (2.3 0.9 0.15);
+lvl14                8;
+
+
+// ==================== snappyHexMesh: SURFACE REFINEMENT ====================
+// One set per patch. Keep both entries of <Patch>_RefLvl equal and set
+// <Patch>_feature to the same level.
+
+Monocoque_RefLvl         (9 9);
+Monocoque_feature        9;
+
+Monocoque_Kick_RefLvl    (9 9);
+Monocoque_Kick_feature   9;
+
+Monocoque_Duct_RefLvl    (9 9);
+Monocoque_Duct_feature   9;
+
+Radiator_Ducts_RefLvl    (9 9);
+Radiator_Ducts_feature   9;
+
+Susps_RefLvl             (9 9);
+Susps_feature            9;
+
+Uprights_RefLvl          (9 9);
+Uprights_feature         9;
+
+Tyre_Plinths_RefLvl      (11 11);
+Tyre_Plinths_feature     11;
+
+UT_RefLvl                (9 9);
+UT_feature               9;
+
+FW_RefLvl                (9 9);
+FW_feature               9;
+
+RW_RefLvl                (9 9);
+RW_feature               9;
+
+RW_Upper_RefLvl          (9 9);
+RW_Upper_feature         9;
+
+Winglets_RefLvl          (9 9);
+Winglets_feature         9;
+
+T_Tray_RefLvl            (9 9);
+T_Tray_feature           9;
+
+Diffuser_RefLvl          (9 9);
+Diffuser_feature         9;
+
+Wheels_Front_RefLvl      (9 9);
+Wheels_Front_feature     9;
+
+Wheels_Rear_RefLvl       (9 9);
+Wheels_Rear_feature      9;
+
+// Internal zones: porous media and fan disks. No layers.
+Porous_RefLvl            (8 9);
+Porous_feature           9;
+Fan_RefLvl               (8 9);
+Fan_feature              9;
+
+// Level inside the porous and fan zones, for refinementRegions. It has to be
+// a single label: `levels` takes (distance level) pairs, so the *_RefLvl
+// pairs above cannot be reused there.
+Porous_regionLvl         9;
+Fan_regionLvl            9;
+
+
+// ==================== snappyHexMesh: SNAP AND LAYER CONTROLS ====================
+
+surfaceFeatAng             30;      // resolveFeatureAngle, surface refinement
+layersFeatureAngle         150;     // featureAngle, layer addition
+slipFeatureAngle           75;
+maxThicknessToMedialRatio  1.2;
+minMedialAxisAngle         160;
+maxFaceThicknessRatio      3;
+nSmoothNormals             8;
+nSmoothSurfaceNormals      8;
+nSmoothThickness           10;
+nRelaxIter                 10;
+
+
+// ==================== snappyHexMesh: LAYERS ====================
+// One set per patch: number of layers, first layer thickness [m], expansion
+// ratio. Thicknesses are absolute (relativeSizes false), except on ground,
+// which snappyHexMeshDict sets to relative.
+
+Monocoque_nLayers                  3;
+firstLayerThickness_Monocoque      0.00178;
+expansionRatio_Monocoque           1.1;
+
+Monocoque_Kick_nLayers             3;
+firstLayerThickness_Monocoque_Kick 0.00152;
+expansionRatio_Monocoque_Kick      1.1;
+
+// No layers: extrusion inside the duct fails.
+Monocoque_Duct_nLayers             0;
+firstLayerThickness_Monocoque_Duct 0.001;
+expansionRatio_Monocoque_Duct      1.1;
+
+Radiator_Ducts_nLayers             3;
+firstLayerThickness_Radiator_Ducts 0.00178;
+expansionRatio_Radiator_Ducts      1.1;
+
+Susps_nLayers                      4;
+firstLayerThickness_Susps          0.00158;
+expansionRatio_Susps               1.1;
+
+Uprights_nLayers                   4;
+firstLayerThickness_Uprights       0.002;
+expansionRatio_Uprights            1.1;
+
+UT_nLayers                         3;
+firstLayerThickness_UT             0.00188;
+expansionRatio_UT                  1.1;
+
+FW_nLayers                         4;
+firstLayerThickness_FW             0.00133;
+expansionRatio_FW                  1.1;
+
+RW_nLayers                         4;
+firstLayerThickness_RW             0.00188;
+expansionRatio_RW                  1.1;
+
+RW_Upper_nLayers                   4;
+firstLayerThickness_RW_Upper       0.00226;
+expansionRatio_RW_Upper            1.1;
+
+Winglets_nLayers                   3;
+firstLayerThickness_Winglets       0.00169;
+expansionRatio_Winglets            1.1;
+
+T_Tray_nLayers                     3;
+firstLayerThickness_T_Tray         0.00178;
+expansionRatio_T_Tray              1.1;
+
+Diffuser_nLayers                   4;
+firstLayerThickness_Diffuser       0.00188;
+expansionRatio_Diffuser            1.1;
+
+Wheels_Front_nLayers               3;
+firstLayerThickness_Wheels_Front   0.0012;
+expansionRatio_Wheels_Front        1.15;
+
+Wheels_Rear_nLayers                3;
+firstLayerThickness_Wheels_Rear    0.0012;
+expansionRatio_Wheels_Rear         1.15;
+
+Tyre_Plinths_nLayers               4;
+firstLayerThickness_Tyre_Plinths   0.0006;
+expansionRatio_Tyre_Plinths        1.1;
+
+ground_nLayers                     3;
+firstLayerThickness_ground         0.25;
+expansionRatio_ground              1.3;
+
+// Defaults, used where a patch has no value of its own.
+firstLayerThickness                0.001;
+expansionRatio                     1.1;
+
+relativeSizes false;
+
+
+// ==================== nearWallFields FUNCTION ====================
+
+U_near_d             0.001;

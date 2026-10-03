@@ -1,0 +1,20 @@
+# Everything the run scripts generate. Only the case set-up is versioned.
+/[0-9]*/
+/processor*/
+/allProcessors*/
+/Mesh/
+/log_mesh/
+/log_solve/
+/postProcessing/
+/dynamicCode/
+/VTK/
+/aeroTools_output/
+/constant/polyMesh/
+/constant/extendedFeatureEdgeMesh/
+/constant/triSurface/
+/system/controlDict_surfaces
+__pycache__/
+
+# Geometry comes from CAD and is not versioned.
+/constant/triSurface_0deg/*
+!/constant/triSurface_0deg/.gitkeep

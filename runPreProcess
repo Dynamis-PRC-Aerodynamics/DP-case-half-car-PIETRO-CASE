@@ -1,0 +1,12 @@
+#!/bin/bash
+source /usr/lib/openfoam/openfoam2512/etc/bashrc
+
+set -e
+
+cd "$(dirname "$0")"
+
+echo -e "\nSTART AT:" $(date +%d\ %h\ %Y,\ %H:%M:%S) "\n"
+
+python3 preProcessor/preProcessor_pietro.py
+
+echo -e "\nEND AT:" $(date +%d\ %h\ %Y,\ %H:%M:%S)

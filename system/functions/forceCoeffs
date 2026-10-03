@@ -1,0 +1,350 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  8                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+#include 	"../../initialConditions"
+
+libs ( "libforces.so" );
+
+
+DP_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( "DP_.*" );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+    porosity    false;
+}
+
+DP_FW_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_FW );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_RW_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( "DP_RW.*" );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Monocoque_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( "DP_Monocoque.*" "DP_Winglets" "DP_Diffuser" "DP_T_Tray" "DP_Radiator_Ducts" );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Susp_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_Susps DP_Uprights );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_UT_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_UT );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Wheels_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( "DP_Wheels.*" );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Tyre_Plinth_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_Tyre_Plinths );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Winglets_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_Winglets );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_RW_Upper_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_RW_Upper );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_T_Tray_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_T_Tray );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Diffuser_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_Diffuser );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Wheels_Front_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_Wheels_Front );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+DP_Wheels_Rear_forceCoeffs
+{
+    type        forceCoeffsModified;
+
+    libs ( "forceCoeffsModified.so" );
+
+    writeControl    timeStep;
+    timeInterval    1;
+
+    log         true;
+
+    patches     ( DP_Wheels_Rear );
+    rhoName     rho;
+    rhoInf      $rho;          // Redundant for incompressible
+    rho         rhoInf;     // Indicates incompressible
+    liftDir     $lift;
+    dragDir     $drag;
+    CofR        $CR;  // Axle midpoint on ground
+    pitchAxis   $pitch;
+    magUInf     $magU;
+    lRef        $wb;        // Wheelbase length
+    Aref        $A;        // Estimated
+}
+
+// ************************************************************************* //

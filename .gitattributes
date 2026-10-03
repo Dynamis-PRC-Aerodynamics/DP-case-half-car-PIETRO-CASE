@@ -1,0 +1,3 @@
+# The case runs on Linux: bash stops on the first line of a script with
+# Windows line endings.
+* text=auto eol=lf
